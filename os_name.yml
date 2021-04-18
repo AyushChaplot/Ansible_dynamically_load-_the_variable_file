@@ -1,0 +1,19 @@
+- hosts: all
+  vars_files: 
+       - "{{ ansible_facts['distribution'] }}:{{ ansible_facts['distribution_version'] }}.yml"  
+  tasks:
+         - name: "installing httpd"
+           package: 
+              name: "{{ package }}"
+              state: present
+
+
+         - name: "Starting the services"
+           service: 
+              name: "{{ service }}"
+              state: restarted      
+       
+         - name: "os facts"
+           debug:
+                   msg: "{{ ansible_facts['distribution'] }}:{{ ansible_facts['distribution_version'] }}"      
+                 
